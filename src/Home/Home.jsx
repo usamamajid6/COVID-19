@@ -6,19 +6,25 @@ import NumberToWord from "number-to-words";
 
 class Home extends React.Component {
   state = {
-    totalCases: 1,
+    totalCases: 0,
     totalDeaths: 0,
-    totalRecovered: 1
+    totalRecovered: 0
   };
   componentDidMount = async () => {
     const result = await axios({
       method: "get",
-      url: `http://covid-rest.herokuapp.com/`,
+      url: `https://corona.lmao.ninja/all`,
       headers: {
         "content-type": "application/json"
       }
     });
-    this.sortResult(result.data.data);
+    
+    this.setState({
+        totalCases:result.data.cases,
+        totalDeaths:result.data.deaths,
+        totalRecovered:result.data.recovered
+    })
+    // this.sortResult(result.data.data);
   };
 
   sortResult = result => {
