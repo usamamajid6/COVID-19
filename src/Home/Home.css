@@ -1,0 +1,35 @@
+
+
+.mainHead{
+    font-size: 3rem;
+    text-align: center;
+    background-color: rgb(199, 31, 199);
+    padding: 4rem;
+    color: white;
+    font-weight: bolder;
+    margin: 0;
+}
+
+.mainFigures{
+    text-align: center;
+    padding: 2rem;
+    color: white;
+}
+
+.mainFiguresFigure{
+    font-size: 4rem;
+    font-weight: bolder;
+    margin: 1rem;
+}
+
+.mainFiguresTitle{
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 1rem;
+}
+
+.mainFiguresInWords{
+    font-size: 1.5rem;
+    margin: 1rem;
+    text-transform: capitalize;
+}
