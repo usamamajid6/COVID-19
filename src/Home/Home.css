@@ -36,7 +36,7 @@
 }
 
 .tableStyle{
-    /* padding: 2rem; */
+    max-height: 90vh;
 }
 /********** Large devices only **********/
 

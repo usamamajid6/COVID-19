@@ -119,7 +119,7 @@ class Home extends React.Component {
           </div>
         </div>
         <TableContainer className="tableStyle" component={Paper}>
-          <Table size="small" aria-label="a dense table">
+          <Table stickyHeader size="small" aria-label="sticky table">
             <TableHead>
               <TableRow>
                 <TableCell align="center">#</TableCell>
@@ -200,7 +200,7 @@ class Home extends React.Component {
                   </TableCell>
                   <TableCell align="center">
                     <NumberFormat
-                      value={row.active}
+                      value={row.critical}
                       displayType={"text"}
                       thousandSeparator={true}
                       thousandsGroupStyle="lakh"
