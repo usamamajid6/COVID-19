@@ -1,35 +1,109 @@
-
-
-.mainHead{
-    font-size: 3rem;
-    text-align: center;
-    background-color: rgb(199, 31, 199);
-    padding: 4rem;
-    color: white;
-    font-weight: bolder;
-    margin: 0;
+.mainHead {
+  font-size: 3rem;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 60vh;
+  background-color: blueviolet;
+  color: white;
+  font-weight: bolder;
+  margin: 0;
+  height: 60vh;
+  padding: 2rem;
 }
 
-.mainFigures{
-    text-align: center;
-    padding: 2rem;
-    color: white;
+.mainFigures {
+  text-align: center;
+  padding: 2rem;
+  color: white;
 }
 
-.mainFiguresFigure{
-    font-size: 4rem;
-    font-weight: bolder;
-    margin: 1rem;
+.mainFiguresFigure {
+  font-size: 4rem;
+  font-weight: bolder;
+  margin: 1rem;
 }
 
-.mainFiguresTitle{
-    font-size: 2rem;
-    font-weight: bold;
-    margin: 1rem;
+.mainFiguresTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 1rem;
 }
 
-.mainFiguresInWords{
+.mainFiguresInWords {
+  font-size: 1.5rem;
+  margin: 1rem;
+  text-transform: capitalize;
+}
+
+.tableStyle{
+    /* padding: 2rem; */
+}
+/********** Large devices only **********/
+
+@media (min-width: 1200px) {
+}
+
+/********** Medium devices only **********/
+
+@media (min-width: 992px) and (max-width: 1199px) {
+}
+
+/********** Small devices only **********/
+
+@media (min-width: 768px) and (max-width: 991px) {
+}
+
+/********** Extra small devices only **********/
+
+@media (max-width: 767px) {
+  .mainHead {
+    font-size: 2.5rem;
+    line-height: 50vh;
+    height: 50vh;
+  }
+  .mainFiguresFigure {
+    font-size: 3.5rem;
+  }
+  .mainFiguresTitle {
+    font-size: 1.7rem;
+  }
+  .mainFiguresInWords {
+    font-size: 1.3rem;
+  }
+}
+
+/********** Super extra small devices Only **********/
+
+@media (max-width: 620px) {
+  .mainHead {
+    font-size: 2.2rem;
+    line-height: 40vh;
+    height: 40vh;
+  }
+  .mainFiguresFigure {
+    font-size: 3.1rem;
+  }
+  .mainFiguresTitle {
     font-size: 1.5rem;
-    margin: 1rem;
-    text-transform: capitalize;
+  }
+  .mainFiguresInWords {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 479px) {
+  .mainHead {
+    font-size: 2rem;
+    line-height: 30vh;
+    height: 30vh;
+  }
+  .mainFiguresFigure {
+    font-size: 3rem;
+  }
+  .mainFiguresTitle {
+    font-size: 1.3rem;
+  }
+  .mainFiguresInWords {
+    font-size: 1rem;
+  }
 }
