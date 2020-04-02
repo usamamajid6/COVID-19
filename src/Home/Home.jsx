@@ -122,6 +122,7 @@ class Home extends React.Component {
           <Table size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
+                <TableCell align="center">#</TableCell>
                 <TableCell align="center">Country Name</TableCell>
                 <TableCell align="center">Cases</TableCell>
                 <TableCell align="center">Today Cases</TableCell>
@@ -138,20 +139,91 @@ class Home extends React.Component {
               {this.state.rows.map((row, i) => (
                 <TableRow key={i}>
                   <TableCell align="center" component="th" scope="row">
+                    {i + 1}
+                  </TableCell>
+                  <TableCell align="center" component="th" scope="row">
                     {row.country}
                   </TableCell>
-                  <TableCell align="center">{row.cases}</TableCell>
-                  <TableCell align="center">{row.todayCases}</TableCell>
-                  <TableCell align="center">{row.deaths}</TableCell>
-                  <TableCell align="center">{row.todayDeaths}</TableCell>
-                  <TableCell align="center">{row.recovered}</TableCell>
-                  <TableCell align="center">{row.active}</TableCell>
-                  <TableCell align="center">{row.critical}</TableCell>
                   <TableCell align="center">
-                    {row.casesPerOneMillion}
+                    <NumberFormat
+                      value={row.cases}
+                      displayType={"text"}
+                      thousandSeparator={true}
+                      thousandsGroupStyle="lakh"
+                      renderText={value => <div>{value}</div>}
+                    />
                   </TableCell>
                   <TableCell align="center">
-                    {row.deathsPerOneMillion}
+                    <NumberFormat
+                      value={row.todayCases}
+                      displayType={"text"}
+                      thousandSeparator={true}
+                      thousandsGroupStyle="lakh"
+                      renderText={value => <div>{value}</div>}
+                    />
+                  </TableCell>
+                  <TableCell align="center">
+                    <NumberFormat
+                      value={row.deaths}
+                      displayType={"text"}
+                      thousandSeparator={true}
+                      thousandsGroupStyle="lakh"
+                      renderText={value => <div>{value}</div>}
+                    />
+                  </TableCell>
+                  <TableCell align="center">
+                    <NumberFormat
+                      value={row.todayDeaths}
+                      displayType={"text"}
+                      thousandSeparator={true}
+                      thousandsGroupStyle="lakh"
+                      renderText={value => <div>{value}</div>}
+                    />
+                  </TableCell>
+                  <TableCell align="center">
+                    <NumberFormat
+                      value={row.recovered}
+                      displayType={"text"}
+                      thousandSeparator={true}
+                      thousandsGroupStyle="lakh"
+                      renderText={value => <div>{value}</div>}
+                    />
+                  </TableCell>
+                  <TableCell align="center">
+                    <NumberFormat
+                      value={row.active}
+                      displayType={"text"}
+                      thousandSeparator={true}
+                      thousandsGroupStyle="lakh"
+                      renderText={value => <div>{value}</div>}
+                    />
+                  </TableCell>
+                  <TableCell align="center">
+                    <NumberFormat
+                      value={row.active}
+                      displayType={"text"}
+                      thousandSeparator={true}
+                      thousandsGroupStyle="lakh"
+                      renderText={value => <div>{value}</div>}
+                    />
+                  </TableCell>
+                  <TableCell align="center">
+                    <NumberFormat
+                      value={row.casesPerOneMillion}
+                      displayType={"text"}
+                      thousandSeparator={true}
+                      thousandsGroupStyle="lakh"
+                      renderText={value => <div>{value}</div>}
+                    />
+                  </TableCell>
+                  <TableCell align="center">
+                    <NumberFormat
+                      value={row.deathsPerOneMillion}
+                      displayType={"text"}
+                      thousandSeparator={true}
+                      thousandsGroupStyle="lakh"
+                      renderText={value => <div>{value}</div>}
+                    />
                   </TableCell>
                 </TableRow>
               ))}
