@@ -5,8 +5,13 @@ class Footer extends Component {
   render() {
     return (
       <div className="mainFooter">
-        Developed By Usama Majid{" "}
-        <a style={{color:"white"}} target="_blank" rel="noopener noreferrer" href="mailto:usamamajid6@gmail.com">
+        A little effort By Usama Majid{" "}
+        <a
+          style={{ color: "white" }}
+          target="_blank"
+          rel="noopener noreferrer"
+          href="mailto:usamamajid6@gmail.com"
+        >
           Contact Me!
         </a>
       </div>
