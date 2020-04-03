@@ -36,8 +36,17 @@
 }
 
 .tableStyle{
-    max-height: 90vh;
+    max-height: 80vh;
+    margin-bottom: 4rem;
 }
+
+.flag{
+    height: 20px;
+    width: 30px;
+    border: 1px solid black;
+    vertical-align: middle;
+}
+
 /********** Large devices only **********/
 
 @media (min-width: 1200px) {

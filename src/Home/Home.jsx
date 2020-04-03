@@ -11,11 +11,38 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 
+const descendingComparator = (a, b, orderBy) => {
+  if (b[orderBy] < a[orderBy]) {
+    return -1;
+  }
+  if (b[orderBy] > a[orderBy]) {
+    return 1;
+  }
+  return 0;
+};
+
+const getComparator = (order, orderBy) => {
+  return order === "desc"
+    ? (a, b) => descendingComparator(a, b, orderBy)
+    : (a, b) => -descendingComparator(a, b, orderBy);
+};
+
+const stableSort = (array, comparator) => {
+  const stabilizedThis = array.map((el, index) => [el, index]);
+  stabilizedThis.sort((a, b) => {
+    const order = comparator(a[0], b[0]);
+    if (order !== 0) return order;
+    return a[1] - b[1];
+  });
+  return stabilizedThis.map(el => el[0]);
+};
+
 class Home extends React.Component {
   state = {
     totalCases: 0,
     totalDeaths: 0,
     totalRecovered: 0,
+    activeCases: 0,
     rows: []
   };
   componentDidMount = async () => {
@@ -29,7 +56,9 @@ class Home extends React.Component {
     this.setState({
       totalCases: result.data.cases,
       totalDeaths: result.data.deaths,
-      totalRecovered: result.data.recovered
+      totalRecovered: result.data.recovered,
+      activeCases:
+        result.data.cases - result.data.deaths - result.data.recovered
     });
     result = await axios({
       method: "get",
@@ -38,10 +67,17 @@ class Home extends React.Component {
         "content-type": "application/json"
       }
     });
-    this.setState({
-      rows: result.data
+
+    // const rows = JSON.stringify(result.data);
+    const rows = result.data;
+    rows.sort((a, b) => {
+      return b.cases - a.cases;
     });
-    console.log(this.state.rows);
+    console.log(rows);
+
+    this.setState({
+      rows
+    });
   };
 
   sortResult = result => {
@@ -73,7 +109,7 @@ class Home extends React.Component {
     return (
       <div>
         <div className="mainHead">CORONA VIRUS(COVID-19) STATUS</div>
-        <div className="mainFigures" style={{ color: "blue" }}>
+        <div className="mainFigures" style={{ color: "darkblue" }}>
           <div className="mainFiguresFigure">
             <NumberFormat
               value={this.state.totalCases}
@@ -118,21 +154,36 @@ class Home extends React.Component {
             ({NumberToWord.toWords(this.state.totalRecovered)})
           </div>
         </div>
+        <div className="mainFigures" style={{ color: "grey" }}>
+          <div className="mainFiguresFigure">
+            <NumberFormat
+              value={this.state.activeCases}
+              displayType={"text"}
+              thousandSeparator={true}
+              thousandsGroupStyle="lakh"
+              renderText={value => <div>{value}</div>}
+            />
+          </div>
+          <div className="mainFiguresTitle">ACTIVE CASES</div>
+          <div className="mainFiguresInWords">
+            ({NumberToWord.toWords(this.state.activeCases)})
+          </div>
+        </div>
         <TableContainer className="tableStyle" component={Paper}>
           <Table stickyHeader size="small" aria-label="sticky table">
             <TableHead>
               <TableRow>
                 <TableCell align="center">#</TableCell>
-                <TableCell align="center">Country Name</TableCell>
-                <TableCell align="center">Cases</TableCell>
-                <TableCell align="center">Today Cases</TableCell>
-                <TableCell align="center">Deaths</TableCell>
-                <TableCell align="center">Today Deaths</TableCell>
-                <TableCell align="center">Recovered</TableCell>
-                <TableCell align="center">Active</TableCell>
-                <TableCell align="center">Critical</TableCell>
-                <TableCell align="center">CP1M</TableCell>
-                <TableCell align="center">DP1M</TableCell>
+                <TableCell align="left">Country Name</TableCell>
+                <TableCell align="left">Cases</TableCell>
+                <TableCell align="left">Today Cases</TableCell>
+                <TableCell align="left">Deaths</TableCell>
+                <TableCell align="left">Today Deaths</TableCell>
+                <TableCell align="left">Recovered</TableCell>
+                <TableCell align="left">Active</TableCell>
+                <TableCell align="left">Critical</TableCell>
+                <TableCell align="left">CP1M</TableCell>
+                <TableCell align="left">DP1M</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -141,10 +192,12 @@ class Home extends React.Component {
                   <TableCell align="center" component="th" scope="row">
                     {i + 1}
                   </TableCell>
-                  <TableCell align="center" component="th" scope="row">
+                  <TableCell align="left" component="th" scope="row">
+                    <img className="flag" src={row.countryInfo.flag} alt="" />{" "}
+                    &nbsp;
                     {row.country}
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell align="left">
                     <NumberFormat
                       value={row.cases}
                       displayType={"text"}
@@ -153,7 +206,7 @@ class Home extends React.Component {
                       renderText={value => <div>{value}</div>}
                     />
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell align="left">
                     <NumberFormat
                       value={row.todayCases}
                       displayType={"text"}
@@ -162,7 +215,7 @@ class Home extends React.Component {
                       renderText={value => <div>{value}</div>}
                     />
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell align="left">
                     <NumberFormat
                       value={row.deaths}
                       displayType={"text"}
@@ -171,7 +224,7 @@ class Home extends React.Component {
                       renderText={value => <div>{value}</div>}
                     />
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell align="left">
                     <NumberFormat
                       value={row.todayDeaths}
                       displayType={"text"}
@@ -180,7 +233,7 @@ class Home extends React.Component {
                       renderText={value => <div>{value}</div>}
                     />
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell align="left">
                     <NumberFormat
                       value={row.recovered}
                       displayType={"text"}
@@ -189,7 +242,7 @@ class Home extends React.Component {
                       renderText={value => <div>{value}</div>}
                     />
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell align="left">
                     <NumberFormat
                       value={row.active}
                       displayType={"text"}
@@ -198,7 +251,7 @@ class Home extends React.Component {
                       renderText={value => <div>{value}</div>}
                     />
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell align="left">
                     <NumberFormat
                       value={row.critical}
                       displayType={"text"}
@@ -207,7 +260,7 @@ class Home extends React.Component {
                       renderText={value => <div>{value}</div>}
                     />
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell align="left">
                     <NumberFormat
                       value={row.casesPerOneMillion}
                       displayType={"text"}
@@ -216,7 +269,7 @@ class Home extends React.Component {
                       renderText={value => <div>{value}</div>}
                     />
                   </TableCell>
-                  <TableCell align="center">
+                  <TableCell align="left">
                     <NumberFormat
                       value={row.deathsPerOneMillion}
                       displayType={"text"}
