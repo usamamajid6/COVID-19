@@ -6,34 +6,33 @@ import L from "leaflet";
 let geojson = L.geoJSON();
 let info = L.control();
 let legend;
+
+
+
 class Map extends Component {
   constructor(props) {
     super(props);
     this.state = {
       center: { lat: 21.3891, lng: 39.8579 },
-      zoom: 3,
+      zoom: 2,
       geoJSON: props.geoJSON,
     };
   }
   componentDidMount = () => {
     this.loadMap();
+    // console.log(this.state.geoJSON);
+    
   };
   loadMap = () => {
     this.map = L.map("map", {
       center: [this.state.center.lat, this.state.center.lng],
       zoom: this.state.zoom,
     });
-    L.tileLayer(
-      "https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}",
-      {
-        attribution:
-          'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        subdomains: "abcd",
-        minZoom: 1,
-        maxZoom: 6,
-        ext: "jpg",
-      }
-    ).addTo(this.map);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(this.map);
     geojson = L.geoJson(this.state.geoJSON, {
       style: this.style,
       onEachFeature: this.onEachFeature,
@@ -49,10 +48,10 @@ class Map extends Component {
     // method that we will use to update the control based on feature properties passed
     info.update = (props) => {
       this._div.innerHTML =
-        "<h4>CORONA ACTIVE CASES</h4>" +
+        "<h4>CORONA STATUS</h4>" +
         (props
           ? "<b>" +
-            props.ADMIN +
+            props.name +
             "</b><br />" +
             "Total Cases: " +
             props.cases +
@@ -74,8 +73,7 @@ class Map extends Component {
 
     legend.onAdd = (map) => {
       var div = L.DomUtil.create("div", "info legend"),
-        grades = [0, 1000, 2000, 5000, 10000, 20000, 50000, 100000],
-        labels = [];
+        grades = [0, 1000, 2000, 5000, 10000, 20000, 50000, 100000];
 
       // loop through our density intervals and generate a label with a colored square for each interval
       for (var i = 0; i < grades.length; i++) {

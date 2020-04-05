@@ -15,7 +15,7 @@ import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import geoJSON from "../Assets/countryGeoJSON.json";
+import geoJSON from "../Assets/geoJSON.json";
 import Map from "./Map";
 
 class Home extends React.Component {
@@ -73,7 +73,7 @@ class Home extends React.Component {
 
       for (let j = 0; j < rows.length; j++) {
         const row = rows[j];
-        if (row.country === geo.properties.ADMIN) {
+        if (row.countryInfo.iso3 === geo.id) {
         
             geo.properties.cases = row.cases;
             geo.properties.deaths = row.deaths;
@@ -305,11 +305,10 @@ class Home extends React.Component {
         <div className="switch">
           Map{" "}
           <Switch
+          
             checked={this.state.tableOrMap}
             onChange={() => {
-              this.setState({ tableOrMapLoader: true });
               this.setState({ tableOrMap: !this.state.tableOrMap });
-              this.setState({ tableOrMapLoader: false });
              
             }}
             color="primary"

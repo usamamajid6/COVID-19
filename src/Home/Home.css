@@ -69,6 +69,7 @@
   height: 80vh;
   width: 100%;
   margin-bottom: 4rem;
+  border: 2px solid black;
 }
 
 .info {
