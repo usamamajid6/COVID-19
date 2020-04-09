@@ -7,8 +7,6 @@ let geojson = L.geoJSON();
 let info = L.control();
 let legend;
 
-
-
 class Map extends Component {
   constructor(props) {
     super(props);
@@ -21,7 +19,6 @@ class Map extends Component {
   componentDidMount = () => {
     this.loadMap();
     // console.log(this.state.geoJSON);
-    
   };
   loadMap = () => {
     this.map = L.map("map", {
@@ -121,6 +118,8 @@ class Map extends Component {
       mouseover: this.highlightFeature,
       mouseout: this.resetHighlight,
       click: this.zoomToFeature,
+      touchstart: this.highlightFeature,
+      touchcancel: this.resetHighlight,
     });
   };
 
