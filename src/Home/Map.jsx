@@ -119,7 +119,8 @@ class Map extends Component {
       mouseout: this.resetHighlight,
       click: this.zoomToFeature,
       touchstart: this.highlightFeature,
-      touchcancel: this.resetHighlight,
+      touchcancel: this.highlightFeature,
+
     });
   };
 
