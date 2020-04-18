@@ -34,7 +34,7 @@ class Home extends React.Component {
   componentDidMount = async () => {
     let result = await axios({
       method: "get",
-      url: `https://corona.lmao.ninja/all`,
+      url: `https://corona.lmao.ninja/v2/all`,
       headers: {
         "content-type": "application/json",
       },
@@ -48,7 +48,7 @@ class Home extends React.Component {
     });
     result = await axios({
       method: "get",
-      url: `https://corona.lmao.ninja/countries`,
+      url: `https://corona.lmao.ninja/v2/countries`,
       headers: {
         "content-type": "application/json",
       },
