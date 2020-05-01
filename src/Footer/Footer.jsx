@@ -10,7 +10,7 @@ class Footer extends Component {
           style={{ color: "white" }}
           target="_blank"
           rel="noopener noreferrer"
-          href="mailto:usamamajid6@gmail.com"
+          href="https://this-is-usama-majid.netlify.app/"
         >
           Contact Me!
         </a>
